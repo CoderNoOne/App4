@@ -1,6 +1,5 @@
 package model.statistics;
 
-import lombok.Data;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -15,13 +14,45 @@ import java.util.stream.Collector;
 
 public class BigDecimalCollector implements Collector<BigDecimal, BigDecimalCollector.PriceSummary, BigDecimalCollector.PriceSummary> {
 
-  @Data
+
   public static class PriceSummary {
 
     private BigDecimal sum;
     private int count;
     private BigDecimal min;
     private BigDecimal max;
+
+    public BigDecimal getSum() {
+      return sum;
+    }
+
+    public void setSum(BigDecimal sum) {
+      this.sum = sum;
+    }
+
+    public int getCount() {
+      return count;
+    }
+
+    public void setCount(int count) {
+      this.count = count;
+    }
+
+    public BigDecimal getMin() {
+      return min;
+    }
+
+    public void setMin(BigDecimal min) {
+      this.min = min;
+    }
+
+    public BigDecimal getMax() {
+      return max;
+    }
+
+    public void setMax(BigDecimal max) {
+      this.max = max;
+    }
 
     public BigDecimal getAverage() {
       BigDecimal bigCount = new BigDecimal(count);

@@ -1,4 +1,6 @@
-package model.validator;
+package validator;
+
+
 
 import model.car.*;
 

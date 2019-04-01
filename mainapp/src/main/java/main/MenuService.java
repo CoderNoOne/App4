@@ -6,7 +6,7 @@ import model.car.CarBodyType;
 import model.car.EngineType;
 import model.sorting.MySort;
 import model.statistics.Quantity;
-import service.Cars;
+import service.CarService;
 import service.UserDataService;
 
 import java.math.BigDecimal;
@@ -16,13 +16,13 @@ import java.util.stream.Collectors;
 
 public class MenuService {
 
-  private final Cars cars;
+  private final CarService carService;
   private final UserDataService userDataService = new UserDataService();
 
 
   public MenuService(final String... jsonFilenames) {
 
-    cars = new Cars(jsonFilenames);
+    carService = new CarService(jsonFilenames);
   }
 
   public void mainMenu() {
@@ -81,8 +81,8 @@ public class MenuService {
                     "Option no. 8 - {7}\n" +
                     "Option no. 9 - {8}\n",
 
-            "List of cars grouped by TyreType",
-            " List of cars with prize within range and with specified Car Body Type",
+            "List of carService grouped by TyreType",
+            " List of carService with prize within range and with specified Car Body Type",
             "LIST OF CARS WITH SPECIFIED COMPONENTS",
             "MILEAGE BY CAR",
             "DISTINCT CAR MODELS WITH SPECIFIED ENGINE TYPE",
@@ -122,20 +122,20 @@ public class MenuService {
         throw new AppException("ENTERED QUANTITY NOT ALLOWED");
     }
 
-    cars.statisticsForSpecifiedQuantity(quantity).forEach((k, v) -> System.out.println(k + v));
+    carService.statisticsForSpecifiedQuantity(quantity).forEach((k, v) -> System.out.println(k + v));
   }
 
   private void option6() {
 
     MySort sortingAlgorithm = userDataService.getSortingAlgorithm("INPUT YOUR SORTING ALGORITHMS");
-    System.out.println(cars.sortedCarListBySelectedCriterium(sortingAlgorithm));
+    System.out.println(carService.sortedCarListBySelectedCriterium(sortingAlgorithm));
 
   }
 
   private void option5() {
 
     int[] arr = {0};
-    Set<EngineType> engineTypes = cars.getCars().stream()
+    Set<EngineType> engineTypes = carService.getCars().stream()
             .map(car -> car.getEngine().getType())
             .collect(Collectors.toSet());
 
@@ -143,7 +143,7 @@ public class MenuService {
     String engineType = userDataService.getString("ENTER ENGINE TYPE FROM ABOVE: ").toUpperCase();
 
     if (engineTypes.stream().anyMatch(enT -> enT.toString().equals(engineType))) {
-      System.out.println(cars.carModels(EngineType.valueOf(engineType)));
+      System.out.println(carService.carModels(EngineType.valueOf(engineType)));
     } else {
       throw new AppException("BAD ENGINE TYPE");
     }
@@ -151,14 +151,14 @@ public class MenuService {
   }
 
   private void option4() {
-    cars.mileagesByCar().forEach((k, v) -> System.out.println("Car: " + k + " -> Mileage: " + v));
+    carService.mileagesByCar().forEach((k, v) -> System.out.println("Car: " + k + " -> Mileage: " + v));
   }
 
   private void option3() {
 
     List<String> list = new ArrayList<>();
 
-    Set<String> components = cars.getCars().stream()
+    Set<String> components = carService.getCars().stream()
             .flatMap(car -> car.getCarBody().getComponents().stream())
             .collect(Collectors.toSet());
 
@@ -195,7 +195,7 @@ public class MenuService {
       }
     }
 
-    System.out.println(cars.carListWithSpecifiedComponents(list));
+    System.out.println(carService.carListWithSpecifiedComponents(list));
   }
 
   private static void option3Menu() {
@@ -218,12 +218,12 @@ public class MenuService {
       throw new AppException("ENTERED CAR BODY TYPE IS NOT ALLOWED");
     }
 
-    System.out.println(cars.carListWithSpecifiedCarBodyType(CarBodyType.valueOf(carBody),
+    System.out.println(carService.carListWithSpecifiedCarBodyType(CarBodyType.valueOf(carBody),
             minPrice, maxPrice));
   }
 
   private void option1() {
-    cars.carsWithRespectToTyreType().forEach((k, v) -> System.out.println("Tyre: " + k + " List: " + v));
+    carService.carsWithRespectToTyreType().forEach((k, v) -> System.out.println("Tyre: " + k + " List: " + v));
   }
 
 }

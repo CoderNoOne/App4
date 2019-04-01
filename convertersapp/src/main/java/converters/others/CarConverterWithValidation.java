@@ -1,9 +1,9 @@
-package model.converters.others;
+package converters.others;
 
+import converters.json.CarConverter;
 import exceptions.AppException;
 import model.car.Car;
-import model.converters.json.CarConverter;
-import model.validator.CarValidator;
+import validator.CarValidator;
 
 
 public class CarConverterWithValidation {

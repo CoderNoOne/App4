@@ -1,3 +1,3 @@
 module exceptionsapp {
-  exports exceptions to mainapp, serviceapp;
+  exports exceptions to mainapp, serviceapp, modelapp, convertersapp;
 }

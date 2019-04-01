@@ -1,12 +1,12 @@
 package service;
 
+import converters.others.CarsConverter;
 import exceptions.AppException;
-import lombok.Getter;
+
 import model.car.Car;
 import model.car.CarBodyType;
 import model.car.EngineType;
 import model.car.TyreType;
-import model.converters.others.CarsConverter;
 import model.sorting.MySort;
 import model.statistics.BigDecimalCollector;
 import model.statistics.Quantity;
@@ -16,13 +16,34 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-@Getter
-public class Cars {
+
+public class CarService {
 
   private Set<Car> cars;
 
-  public Cars(final String... jsonFilenames) {
-    cars = new CarsConverter().toCarsSet(jsonFilenames);
+  public Set<Car> getCars() {
+    return cars;
+  }
+
+
+  private static Set<Car> readCarsFromJsonFile(final String... jsonFilename) {
+
+    if (jsonFilename == null || jsonFilename.length == 0) {
+      throw new AppException("YOU DIDN'T SPECIFY ANY FILE");
+    }
+
+   /* if (Arrays.stream(jsonFilename).noneMatch(jsonFileName -> jsonFileName.matches("[\\w]+\\.json$"))) {
+      throw new AppException("AT LEAST ONE OF YOUR FILES HAS NOT .JSON FORMAT");
+    }*/
+
+    return new CarsConverter()
+            .toCarsSet(jsonFilename);
+
+  }
+
+
+  public CarService(final String... jsonFilenames) {
+    cars = readCarsFromJsonFile(jsonFilenames);
   }
 
   public Map<TyreType, List<Car>> carsWithRespectToTyreType() {

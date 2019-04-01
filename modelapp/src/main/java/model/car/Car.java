@@ -1,14 +1,8 @@
 package model.car;
 
-import exceptions.AppException;
-import lombok.Getter;
-import lombok.ToString;
-import model.converters.json.CarConverter;
-
 import java.math.BigDecimal;
 
-@Getter
-@ToString
+
 public class Car {
 
   private String model;
@@ -18,24 +12,43 @@ public class Car {
   private Wheel wheel;
   private Engine engine;
 
-  public Car(final String jsonFilename) {
-
-    readCarFromJsonFile(jsonFilename);
-
+  public String getModel() {
+    return model;
   }
 
-  private static Car readCarFromJsonFile(final String jsonFilename) {
-
-    if (jsonFilename == null || !jsonFilename.matches("[\\w]+.json")) {
-      throw new AppException("WRONG JSON FILE");
-    }
-
-    return new CarConverter(jsonFilename)
-            .fromJson()
-            .orElseThrow(() -> new AppException("File " + jsonFilename + " is empty"));
+  public BigDecimal getPrice() {
+    return price;
   }
 
+  public int getMileage() {
+    return mileage;
+  }
 
+  public CarBody getCarBody() {
+    return carBody;
+  }
+
+  public Wheel getWheel() {
+    return wheel;
+  }
+
+  public Engine getEngine() {
+    return engine;
+  }
+
+  public Car() {}
+
+  @Override
+  public String toString() {
+    return "Car{" +
+            "model='" + model + '\'' +
+            ", price=" + price +
+            ", mileage=" + mileage +
+            ", carBody=" + carBody +
+            ", wheel=" + wheel +
+            ", engine=" + engine +
+            '}';
+  }
 }
 
 

@@ -1,4 +1,4 @@
-package model.converters.others;
+package converters.others;
 
 import model.car.Car;
 

@@ -7,10 +7,12 @@
         <option value="$PROJECT_DIR$/mainapp/pom.xml" />
         <option value="$PROJECT_DIR$/modelapp/pom.xml" />
         <option value="$PROJECT_DIR$/serviceapp/pom.xml" />
+        <option value="$PROJECT_DIR$/convertersapp/pom.xml" />
+        <option value="$PROJECT_DIR$/validatorsapp/pom.xml" />
       </list>
     </option>
   </component>
-  <component name="ProjectRootManager">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="false" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>

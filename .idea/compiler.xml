@@ -6,17 +6,21 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="convertersapp" />
         <module name="exceptionsapp" />
         <module name="mainapp" />
         <module name="modelapp" />
         <module name="serviceapp" />
+        <module name="validatorsapp" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="exceptionsapp" target="1.5" />
-      <module name="mainapp" target="1.5" />
-      <module name="modelapp" target="1.5" />
-      <module name="serviceapp" target="1.5" />
+      <module name="convertersapp" target="11" />
+      <module name="exceptionsapp" target="11" />
+      <module name="mainapp" target="11" />
+      <module name="modelapp" target="11" />
+      <module name="serviceapp" target="11" />
+      <module name="validatorsapp" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

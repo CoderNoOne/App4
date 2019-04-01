@@ -1,14 +1,23 @@
 package model.car;
 
-import lombok.Data;
+
 
 import java.math.BigDecimal;
 
-@Data
+
 public class Engine {
 
   private EngineType type;
   private BigDecimal power;
+
+
+  public EngineType getType() {
+    return type;
+  }
+
+  public BigDecimal getPower() {
+    return power;
+  }
 
   @Override
   public String toString() {

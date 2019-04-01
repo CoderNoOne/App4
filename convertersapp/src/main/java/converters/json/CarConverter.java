@@ -1,4 +1,5 @@
-package model.converters.json;
+package converters.json;
+
 
 import model.car.Car;
 

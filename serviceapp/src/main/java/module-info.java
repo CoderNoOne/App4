@@ -1,6 +1,6 @@
 module serviceapp {
   exports service to mainapp;
-  requires lombok;
+  requires convertersapp;
   requires modelapp;
   requires exceptionsapp;
 }
