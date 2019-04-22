@@ -1,5 +1,4 @@
 module convertersapp {
-
   requires modelapp;
   requires exceptionsapp;
   requires java.sql;
@@ -7,6 +6,4 @@ module convertersapp {
   requires validatorsapp;
   exports converters.json to serviceapp;
   exports converters.others to serviceapp;
-
-
 }

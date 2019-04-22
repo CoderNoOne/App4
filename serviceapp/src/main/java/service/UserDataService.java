@@ -57,18 +57,18 @@ public class UserDataService {
       switch (input) {
         case "ENGINE_POWER":
           String input1 = getString("CHOOSE ORDERING. ASC/DESC").toUpperCase();
-          sortingAlgorithms.remove("MODEL");
+          sortingAlgorithms.remove("ENGINE_POWER");
           builder = input1.equals("ASC") ? builder.enginePower(true) : builder.enginePower(false);
           break;
         case "TYRE_SIZE":
           String input2 = getString("CHOOSE ORDERING. ASC/DESC").toUpperCase();
           builder = input2.equals("ASC") ? builder.tyreSize(true) : builder.tyreSize(false);
-          sortingAlgorithms.remove("PRICE");
+          sortingAlgorithms.remove("TYRE_SIZE");
           break;
         case "NO_OF_COMPONENTS":
           String input3 = getString("CHOOSE ORDERING. ASC/DESC").toUpperCase();
           builder = input3.equals("ASC") ? builder.noOfComponents(true) : builder.noOfComponents(false);
-          sortingAlgorithms.remove("MILEAGE");
+          sortingAlgorithms.remove("NO_OF_COMPONENTS");
           break;
       }
 

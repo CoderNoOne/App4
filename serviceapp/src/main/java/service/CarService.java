@@ -21,10 +21,9 @@ public class CarService {
 
   private Set<Car> cars;
 
-  public Set<Car> getCars() {
-    return cars;
+  public CarService(final String... jsonFilenames) {
+    cars = readCarsFromJsonFile(jsonFilenames);
   }
-
 
   private static Set<Car> readCarsFromJsonFile(final String... jsonFilename) {
 
@@ -32,18 +31,9 @@ public class CarService {
       throw new AppException("YOU DIDN'T SPECIFY ANY FILE");
     }
 
-   /* if (Arrays.stream(jsonFilename).noneMatch(jsonFileName -> jsonFileName.matches("[\\w]+\\.json$"))) {
-      throw new AppException("AT LEAST ONE OF YOUR FILES HAS NOT .JSON FORMAT");
-    }*/
-
     return new CarsConverter()
-            .toCarsSet(jsonFilename);
+            .toCarSet(jsonFilename);
 
-  }
-
-
-  public CarService(final String... jsonFilenames) {
-    cars = readCarsFromJsonFile(jsonFilenames);
   }
 
   public Map<TyreType, List<Car>> carsWithRespectToTyreType() {
@@ -77,7 +67,6 @@ public class CarService {
             );
   }
 
-
   public Set<String> carModels(EngineType engineType) {
 
     return cars.stream()
@@ -96,7 +85,7 @@ public class CarService {
             .collect(Collectors.toList());
   }
 
-  public List<Car> sortedCarListBySelectedCriterium(MySort mySort) {
+  public List<Car> sortedCarListBySelectedCriterion(MySort mySort) {
 
     return cars.stream()
             .sorted(mySort.getComparator())
@@ -128,4 +117,7 @@ public class CarService {
                             "MIN: ", colector.getMin())));
   }
 
+  public Set<Car> getCars() {
+    return cars;
+  }
 }

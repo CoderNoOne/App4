@@ -1,13 +1,9 @@
 package model.car;
 
-
-
-
 public class Wheel {
   private String model;
   private int size;
   private TyreType type;
-
 
   public String getModel() {
     return model;

@@ -1,7 +1,6 @@
 package validator;
 
 
-
 import model.car.*;
 
 import java.math.BigDecimal;
@@ -9,7 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CarValidator {
+public class CarValidator implements Validator<Car> {
 
   private Map<String, String> errors = new HashMap<>();
 

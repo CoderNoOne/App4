@@ -36,7 +36,6 @@ public class StatisticsCollector<T> implements Collector<T, StatisticsCollector.
     return (r1, r2) -> {
       Statistics<T> statistics = new Statistics<>();
 
-      // MIN
       if (Objects.isNull(r1.getMin()) && Objects.isNull(r2.getMin())) {
         statistics.setMin(null);
       } else if (Objects.isNull(r1.getMin()) && Objects.nonNull(r2.getMin())) {
@@ -47,7 +46,6 @@ public class StatisticsCollector<T> implements Collector<T, StatisticsCollector.
         statistics.setMin(comparator.compare(r1.getMin(), r2.getMin()) <= 0 ? r1.getMin() : r2.getMin());
       }
 
-      // MAX
       if (Objects.isNull(r1.getMax()) && Objects.isNull(r2.getMax())) {
         statistics.setMax(null);
       } else if (Objects.isNull(r1.getMax()) && Objects.nonNull(r2.getMax())) {
@@ -58,7 +56,6 @@ public class StatisticsCollector<T> implements Collector<T, StatisticsCollector.
         statistics.setMax(comparator.compare(r1.getMax(), r2.getMax()) <= 0 ? r1.getMax() : r2.getMax());
       }
 
-      // TOTAL
       if (Objects.isNull(r1.getTotal()) && Objects.isNull(r2.getTotal())) {
         statistics.setTotal(null);
       } else if (Objects.isNull(r1.getTotal()) && Objects.nonNull(r2.getTotal())) {
@@ -69,8 +66,6 @@ public class StatisticsCollector<T> implements Collector<T, StatisticsCollector.
         statistics.setTotal(binaryOperator.apply(r1.getTotal(), r2.getTotal()));
       }
 
-
-      //COUNT
       statistics.setCount(r1.getCount() + r2.getCount());
 
       return statistics;
@@ -141,7 +136,5 @@ public class StatisticsCollector<T> implements Collector<T, StatisticsCollector.
     }
 
   }
-
-
 }
 

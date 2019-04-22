@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import exceptions.AppException;
 
-
 import java.io.FileReader;
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -30,5 +29,9 @@ public abstract class JsonConverter<T> {
       System.out.println(JsonConverter.class.getResource(""));
       throw new AppException("FROM JSON CONVERSION EXCEPTION");
     }
+  }
+
+  public String getJsonFilename() {
+    return jsonFilename;
   }
 }

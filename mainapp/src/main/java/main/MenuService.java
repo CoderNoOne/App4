@@ -22,7 +22,17 @@ public class MenuService {
 
   public MenuService(final String... jsonFilenames) {
 
+    if (!areJsonFilesValid(jsonFilenames)) {
+      throw new AppException("WRONG JSON FILE FORMAT");
+    }
+
     carService = new CarService(jsonFilenames);
+  }
+
+  private boolean areJsonFilesValid(final String... jsonFilenames) {
+    return jsonFilenames != null
+            && Arrays.stream(jsonFilenames).noneMatch(Objects::isNull)
+            && Arrays.stream(jsonFilenames).allMatch(name -> name.matches(".+\\.json$"));
   }
 
   public void mainMenu() {
@@ -81,15 +91,15 @@ public class MenuService {
                     "Option no. 8 - {7}\n" +
                     "Option no. 9 - {8}\n",
 
-            "List of carService grouped by TyreType",
-            " List of carService with prize within range and with specified Car Body Type",
-            "LIST OF CARS WITH SPECIFIED COMPONENTS",
-            "MILEAGE BY CAR",
-            "DISTINCT CAR MODELS WITH SPECIFIED ENGINE TYPE",
-            "SORT CARS BY SPECIFIED CRITERIUM AND WITH SPECIFIED ORDER",
-            "STATISTICS FOR SPECIFIED QUANTITY",
-            "MENU OPTIONS",
-            "EXIT"
+            "List of cars grouped by type of tyre",
+            "List of cars with prize within range and with specified car body type",
+            "List of cars with specified component",
+            "Mileage by car",
+            "Show car models with specified engine type",
+            "Sort cars by specified criterion and with specified order",
+            "Show statistics for specified quantity",
+            "Show the menu options",
+            "Exit the program"
 
     );
 
@@ -105,7 +115,7 @@ public class MenuService {
 
     quantityMap.forEach((k, v) -> System.out.println("QUANTITY NO. " + ++k + " " + v));
 
-    int choice = userDataService.getInt("ENTER QUANTITY FROM ABOVE: ");
+    int choice = userDataService.getInt("ENTER QUANTITY NUMBER FROM ABOVE: ");
     Quantity quantity;
 
     switch (choice) {
@@ -128,7 +138,7 @@ public class MenuService {
   private void option6() {
 
     MySort sortingAlgorithm = userDataService.getSortingAlgorithm("INPUT YOUR SORTING ALGORITHMS");
-    System.out.println(carService.sortedCarListBySelectedCriterium(sortingAlgorithm));
+    System.out.println(carService.sortedCarListBySelectedCriterion(sortingAlgorithm));
 
   }
 
@@ -155,47 +165,58 @@ public class MenuService {
   }
 
   private void option3() {
-
     List<String> list = new ArrayList<>();
+    Set<String> components = carComponentsSet();
 
-    Set<String> components = carService.getCars().stream()
-            .flatMap(car -> car.getCarBody().getComponents().stream())
-            .collect(Collectors.toSet());
-
-    et:
-    while (true) {
+    boolean exit = false;
+    while (!exit) {
       option3Menu();
       int option = userDataService.getInt("Choose option");
       switch (option) {
         case 1:
           if (components.size() > list.size()) {
-            int[] arr = {1};
-
-            components.stream()
-                    .filter(component -> !list.contains(component))
-                    .forEach(component -> System.out.println("Component " + arr[0]++ + ": " + component));
-
-            boolean isValid;
-            do {
-
-              String userInput = userDataService.getString(" INPUT COMPONENT: ");
-              isValid = components.stream().anyMatch(c -> c.equalsIgnoreCase(userInput));
-              if (isValid) list.add(userInput);
-              else System.out.println("YOUR INPUT DOESN'T MATCH ANY COMPONENT. INPUT PROPER COMPONENT NAME");
-            } while (!isValid);
+            doSth2(components, list);
           } else {
             System.out.println("YOU HAVE CHOOSEN ALL THE COMPONENTS ARLEADY");
-            break et;
+            exit = true;
           }
           break;
         case 2:
-          break et;
+          exit = true;
+          break;
         default:
-          throw new AppException("OPTION IS NOT AVAILABLE! ");
+          System.out.println("OPTION IS NOT AVAILABLE! ");
       }
     }
 
     System.out.println(carService.carListWithSpecifiedComponents(list));
+  }
+
+  private Set<String> carComponentsSet() {
+    return carService.getCars().stream()
+            .flatMap(car -> car.getCarBody().getComponents().stream())
+            .collect(Collectors.toSet());
+  }
+
+  private void doSth2(Set<String> components, List<String> list) {
+    int[] arr = {1};
+    components.stream()
+            .filter(component -> !list.contains(component))
+            .forEach(component -> System.out.println("Component " + arr[0]++ + ": " + component));
+
+    doSth(components, list);
+  }
+
+  private void doSth(Set<String> components, List<String> list) {
+
+    boolean isValid;
+    do {
+      String userInput = userDataService.getString(" INPUT COMPONENT: ");
+      isValid = components.stream().anyMatch(c -> c.equalsIgnoreCase(userInput));
+      if (isValid) list.add(userInput);
+      else System.out.println("YOUR INPUT DOESN'T MATCH ANY COMPONENT. INPUT PROPER COMPONENT NAME");
+    } while (!isValid);
+
   }
 
   private static void option3Menu() {
