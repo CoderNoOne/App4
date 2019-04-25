@@ -33,7 +33,6 @@ public class CarService {
 
     return new CarsConverter()
             .toCarSet(jsonFilename);
-
   }
 
   public Map<TyreType, List<Car>> carsWithRespectToTyreType() {
@@ -112,9 +111,9 @@ public class CarService {
     return cars.stream()
             .map(function)
             .collect(Collectors.collectingAndThen(new BigDecimalCollector(),
-                    colector -> Map.of("AVERAGE: ", colector.getAverage(),
-                            "MAX: ", colector.getMax(),
-                            "MIN: ", colector.getMin())));
+                    collector -> Map.of("AVERAGE: ", collector.getAverage(),
+                            "MAX: ", collector.getMax(),
+                            "MIN: ", collector.getMin())));
   }
 
   public Set<Car> getCars() {

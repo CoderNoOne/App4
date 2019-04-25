@@ -171,13 +171,13 @@ public class MenuService {
     boolean exit = false;
     while (!exit) {
       option3Menu();
-      int option = userDataService.getInt("Choose option");
+      int option = userDataService.getInt("CHOOSE OPTION");
       switch (option) {
         case 1:
           if (components.size() > list.size()) {
-            doSth2(components, list);
+            listAndInputAvailableComponents(components, list);
           } else {
-            System.out.println("YOU HAVE CHOOSEN ALL THE COMPONENTS ARLEADY");
+            System.out.println("YOU HAVE CHOOSEN ALL THE COMPONENTS ALREADY");
             exit = true;
           }
           break;
@@ -185,7 +185,7 @@ public class MenuService {
           exit = true;
           break;
         default:
-          System.out.println("OPTION IS NOT AVAILABLE! ");
+          System.out.println("OPTION IS NOT AVAILABLE!");
       }
     }
 
@@ -198,16 +198,16 @@ public class MenuService {
             .collect(Collectors.toSet());
   }
 
-  private void doSth2(Set<String> components, List<String> list) {
+  private void listAndInputAvailableComponents(Set<String> components, List<String> list) {
     int[] arr = {1};
     components.stream()
             .filter(component -> !list.contains(component))
             .forEach(component -> System.out.println("Component " + arr[0]++ + ": " + component));
 
-    doSth(components, list);
+    inputAvailableComponent(components, list);
   }
 
-  private void doSth(Set<String> components, List<String> list) {
+  private void inputAvailableComponent(Set<String> components, List<String> list) {
 
     boolean isValid;
     do {

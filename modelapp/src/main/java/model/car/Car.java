@@ -2,7 +2,6 @@ package model.car;
 
 import java.math.BigDecimal;
 
-
 public class Car {
 
   private String model;
@@ -11,6 +10,8 @@ public class Car {
   private CarBody carBody;
   private Wheel wheel;
   private Engine engine;
+
+  public Car() {}
 
   public String getModel() {
     return model;
@@ -35,8 +36,6 @@ public class Car {
   public Engine getEngine() {
     return engine;
   }
-
-  public Car() {}
 
   @Override
   public String toString() {
